@@ -84,42 +84,37 @@ public final class GluonNetwork {
     }
     
     internal func processRequest(_ request: URLRequest) async throws -> NetworkResponse {
-        do {
-            let (data, response) = try await self.httpSession.data(for: request)
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badRequest
-            }
-            
-            switch httpResponse.statusCode {
-                case 400:
-                    throw NetworkError.badRequest
-                case 401:
-                    throw NetworkError.unauthorized
-                case 403:
-                    throw NetworkError.forbidden
-                case 404:
-                    throw NetworkError.notFound
-                case 405...499:
-                    throw NetworkError.backendError(code: httpResponse.statusCode)
-                case 500:
-                    throw NetworkError.internalError
-                case 501:
-                    throw NetworkError.notImplemented
-                case 503:
-                    throw NetworkError.serviceUnavailable
-                case 504...599:
-                    throw NetworkError.backendError(code: httpResponse.statusCode)
-                default:
-                    let apiResponse = NetworkResponse(withCode: httpResponse.statusCode,
-                                                  results: data,
-                                                  headers: httpResponse.allHeaderFields)
-                    
-                    return apiResponse
-            }
-        } catch let error {
-            print("🚨 Error de red. \(error.localizedDescription)")
+        let (data, response) = try await self.httpSession.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.badRequest
+        }
+        
+        switch httpResponse.statusCode {
+            case 400:
+                throw NetworkError.badRequest
+            case 401:
+                throw NetworkError.unauthorized
+            case 403:
+                throw NetworkError.forbidden
+            case 404:
+                throw NetworkError.notFound
+            case 405...499:
+                throw NetworkError.backendError(code: httpResponse.statusCode)
+            case 500:
+                throw NetworkError.internalError
+            case 501:
+                throw NetworkError.notImplemented
+            case 503:
+                throw NetworkError.serviceUnavailable
+            case 504...599:
+                throw NetworkError.backendError(code: httpResponse.statusCode)
+            default:
+                let apiResponse = NetworkResponse(withCode: httpResponse.statusCode,
+                                              results: data,
+                                              headers: httpResponse.allHeaderFields)
+                
+                return apiResponse
         }
     }
 }

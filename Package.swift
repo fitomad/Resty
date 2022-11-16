@@ -29,6 +29,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "GluonNetworkTests",
-            dependencies: ["GluonNetwork"]),
+            dependencies: ["GluonNetwork"])
     ]
 )
