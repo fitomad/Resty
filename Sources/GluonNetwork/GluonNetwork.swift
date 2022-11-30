@@ -9,15 +9,20 @@ public final class GluonNetwork {
     /// ...and his configuración
     public private(set) var httpConfiguration: URLSessionConfiguration!
     
-    public init() {
+    public init(settings: Settings) {
         self.httpConfiguration = URLSessionConfiguration.default
-        self.httpConfiguration.httpMaximumConnectionsPerHost = 10
+        self.httpConfiguration.httpMaximumConnectionsPerHost = settings.maximumConnectionsPerHost
         
-        self.httpQueue.maxConcurrentOperationCount = 10
+        self.httpQueue.maxConcurrentOperationCount = settings.maximumConcurrentOperationCount
         
         self.httpSession = URLSession(configuration:self.httpConfiguration,
                                       delegate:nil,
                                       delegateQueue:httpQueue)
+    }
+    
+    public convenience init() {
+        let defaultSettings = Settings()
+        self.init(settings: defaultSettings)
     }
     
     /// Cancels all network operations

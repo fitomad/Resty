@@ -240,4 +240,25 @@ final class GluonNetworkTests: XCTestCase {
             self.testPOST()
         }
     }
+    
+    func testSettings() throws {
+        let expectation = self.expectation(description: "Settings initializer")
+        
+        var settings = Settings()
+        settings.maximumConcurrentOperationCount = 1
+        settings.maximumConnectionsPerHost = 1
+        
+        let api = GluonNetwork(settings: settings)
+        
+        api.publisher(for: TestEndpoints.apple)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in
+                expectation.fulfill()
+            }, receiveValue: { apiResponse in
+                XCTAssertNotNil(apiResponse.data)
+            })
+            .store(in: &subscribers)
+        
+        self.wait(for: [ expectation ], timeout: 10.0)
+    }
 }
