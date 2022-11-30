@@ -16,6 +16,10 @@ final class GluonNetworkTests: XCTestCase {
         case reqresLogin
         case notFound
         
+        private var basePath: String {
+            return "..."
+        }
+        
         public var path: String {
             switch self {
                 case .apple: return "https://apple.com/es"
