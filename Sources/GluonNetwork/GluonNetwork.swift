@@ -43,7 +43,7 @@ public final class GluonNetwork {
     */
     internal func processRequest(_ request: URLRequest) -> AnyPublisher<NetworkResponse, NetworkError> {
          self.httpSession.dataTaskPublisher(for: request)
-             .tryMap { (data, response) -> (Data?, HTTPURLResponse) in
+             .tryMap { (data, response) -> (Data, HTTPURLResponse) in
                  guard let httpResponse = response as? HTTPURLResponse else {
                      throw NetworkError.badRequest
                  }
@@ -51,32 +51,9 @@ public final class GluonNetwork {
                  return (data, httpResponse)
              }
              .tryMap { (data, httpResponse) -> NetworkResponse in
-                 switch httpResponse.statusCode {
-                 case 400:
-                     throw NetworkError.badRequest
-                 case 401:
-                     throw NetworkError.unauthorized
-                 case 403:
-                     throw NetworkError.forbidden
-                 case 404:
-                     throw NetworkError.notFound
-                 case 405...499:
-                     throw NetworkError.backendError(code: httpResponse.statusCode)
-                 case 500:
-                     throw NetworkError.internalError
-                 case 501:
-                     throw NetworkError.notImplemented
-                 case 503:
-                     throw NetworkError.serviceUnavailable
-                 case 504...599:
-                     throw NetworkError.backendError(code: httpResponse.statusCode)
-                 default:
-                     let apiResponse = NetworkResponse(withCode: httpResponse.statusCode,
-                                                   results: data,
-                                                   headers: httpResponse.allHeaderFields)
-                     
-                     return apiResponse
-                 }
+                 let apiResponse = try self.processResponse(httpResponse, data: data)
+                 
+                 return apiResponse
              }
              .mapError { error in
                  if let NetworkError = error as? NetworkError {
@@ -95,6 +72,12 @@ public final class GluonNetwork {
             throw NetworkError.badRequest
         }
         
+        let apiResponse = try processResponse(httpResponse, data: data)
+        
+        return apiResponse
+    }
+    
+    private func processResponse(_ httpResponse: HTTPURLResponse, data: Data) throws -> NetworkResponse {
         switch httpResponse.statusCode {
             case 400:
                 throw NetworkError.badRequest
