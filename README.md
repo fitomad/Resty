@@ -3,7 +3,7 @@
 Network layer framework written 100% Swift. Developers can consume REST APIs in two ways
 
 * [Reactive](#reactive). Using the `Combine` framework
-* [Single-Shot](#async/await) operation. With the `async/await` pattern
+* [Single-Shot](#asyncawait) operation. With the `async/await` pattern
 
 ## Consuming a HTTP API with GluonNetwork framework
 
