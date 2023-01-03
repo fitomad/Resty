@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public extension GluonNetwork {
+public extension Resty {
     // MARK: - Fetch functions
     
     /**

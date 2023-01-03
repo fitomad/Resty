@@ -63,7 +63,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
     func testGetAppleWebPage() async throws  {
         let expectation = self.expectation(description: "Apple page")
 
-        let api = GluonNetwork()
+        let api = Resty()
         
         let response = try await api.fetch(endpoint: TestEndpoints.apple)
             
@@ -77,7 +77,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
     func testNotFound() async throws {
         let expectation = self.expectation(description: "Not Found response test")
 
-        let api = GluonNetwork()
+        let api = Resty()
         
         do {
             try await api.fetch(endpoint: TestEndpoints.notFound)
@@ -94,7 +94,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
         let expectation = self.expectation(description: "POST HTTP method test")
 
         let user = User(name: "Charlie Parker", jobTitle: "Private investigator")
-        let api = GluonNetwork()
+        let api = Resty()
 
         let encoder = JSONEncoder()
 
@@ -118,7 +118,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
         let expectation = self.expectation(description: "POST HTTP method test")
 
         let login = Login(email: "myself@me.com")
-        let api = GluonNetwork()
+        let api = Resty()
 
         let encoder = JSONEncoder()
 
@@ -141,7 +141,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
         let expectation = self.expectation(description: "PUT HTTP method test")
 
         let user = User(name: "Roland Deschain", jobTitle: "Midworld Gunslinger")
-        let api = GluonNetwork()
+        let api = Resty()
 
         let encoder = JSONEncoder()
 
@@ -165,7 +165,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
         let expectation = self.expectation(description: "PATCH HTTP method test")
 
         let user = User(name: "Randall Flagg", jobTitle: "The Bag Guy")
-        let api = GluonNetwork()
+        let api = Resty()
 
         let encoder = JSONEncoder()
 
@@ -188,7 +188,7 @@ final class GluonAsyncNetworkTests: XCTestCase {
     func testDELETE() async throws {
         let expectation = self.expectation(description: "DELETE HTTP method test")
 
-        let api = GluonNetwork()
+        let api = Resty()
 
         var parameters = NetworkRequest()
         parameters.method = .delete

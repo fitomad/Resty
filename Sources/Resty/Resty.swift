@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public final class GluonNetwork {
+public final class Resty {
     // URL manager...
     public private(set) var httpSession: URLSession!
     /// ...his operation queue...
