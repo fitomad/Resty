@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import GluonNetwork
+@testable import Resty
 
 extension NetworkError: Equatable {
     public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {

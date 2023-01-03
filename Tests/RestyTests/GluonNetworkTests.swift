@@ -1,6 +1,6 @@
 import XCTest
 import Combine
-@testable import GluonNetwork
+@testable import Resty
 
 final class GluonNetworkTests: XCTestCase {
     private var subscribers = Set<AnyCancellable>()
