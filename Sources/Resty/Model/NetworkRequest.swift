@@ -42,7 +42,7 @@ public struct NetworkRequest {
               var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return nil }
         
         if let parameters = queryParameters, !parameters.isEmpty {
-            components.queryItems?.append(contentsOf: parameters.map({ $0.queryItem }))
+            components.queryItems = parameters.map({ $0.queryItem })
         }
         
         guard let url = components.url else {
