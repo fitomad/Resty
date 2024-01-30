@@ -1,4 +1,4 @@
-# Resty. A Swift network librar
+# Resty. A Swift network library
 
 Network layer framework written 100% Swift. Developers can consume REST APIs in two ways
 
