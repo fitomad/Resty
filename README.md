@@ -67,7 +67,7 @@ Request headers will be set using a Dictionary with a key of `String` type and v
 The HTTP request body payload is expected as a `Data` type
 
 ### Query Parameters
-The URL query items in GluonNetwork conforms the `QueryParameter` protocol thar defines a property named `queryItem` of type `URLQueryItem`
+The URL query items in Resty conforms the `QueryParameter` protocol thar defines a property named `queryItem` of type `URLQueryItem`
 
 ```swift
 var queryItem: URLQueryItem { get }
@@ -126,7 +126,7 @@ Now we are ready to perform a network request.
 
 ```swift
 var subscribers = Set<AnyCancellable>()
-let api = GluonNetwork()
+let api = Resty()
 
 api.publisher(for: TestEndpoints.apple)
     .receive(on: DispatchQueue.main)
@@ -143,7 +143,7 @@ api.publisher(for: TestEndpoints.apple)
 ## Async/Await
 
 ```swift
-let api = GluonNetwork()
+let api = Resty()
 
 do {
     let response = try await api.fetch(endpoint: TestEndpoints.apple)
