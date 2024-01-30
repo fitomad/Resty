@@ -1,15 +1,15 @@
-# GluonNetwork
+# Resty. A Swift network librar
 
 Network layer framework written 100% Swift. Developers can consume REST APIs in two ways
 
 * [Reactive](#reactive). Using the `Combine` framework
 * [Single-Shot](#asyncawait) operation. With the `async/await` pattern
 
-## Consuming a HTTP API with GluonNetwork framework
+## Consuming a HTTP API with Resty
 
 First of all we need a REST API to consume. This consumption is done through endpoints, that are a set of URL.
 
-For that reason GluonFramework provides a protocol named Endpoint that is the type expected for the whole network operations across the framework.
+For that reason Resty provides a protocol named Endpoint that is the type expected for the whole network operations across the framework.
 
 This protocol defines only one variable named path that represents an URL
 
